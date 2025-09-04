@@ -1,5 +1,5 @@
 import Navbar from "../components/common/Navbar";
-import Home from "../pages/home";
+import Home from "../pages/Home";
 
 const DashboardLayout = () => {
   return (
