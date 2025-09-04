@@ -1,11 +1,8 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss()
-  ],
-  base: "/", // Important for React Router in Vercel
-})
+  plugins: [react(), tailwindcss()],
+  base: "/", // For React Router in Vercel
+});
