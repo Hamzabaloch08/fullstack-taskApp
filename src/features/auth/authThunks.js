@@ -29,15 +29,16 @@ export const logoutUser = createAsyncThunk("auth/logout", async () => {
   await logout();
 });
 
-export const checkAuthUser = createAsyncThunk(
+export const checkUser = createAsyncThunk(
   "auth/check",
   async (_, { rejectWithValue }) => {
     try {
       const res = await checkAuth();
-      console.log(res?.data)
-      return res?.data;
+      return res.data.data.user; // backend se { user } aa raha hai
     } catch (err) {
-      return rejectWithValue("Not authenticated");
+      return rejectWithValue(
+        err.response?.data?.message || "Not authenticated"
+      );
     }
   }
 );
