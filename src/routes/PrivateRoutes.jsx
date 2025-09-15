@@ -1,24 +1,28 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { checkAuthUser } from "../features/auth/authThunks";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { Navigate } from "react-router";
-
-
+import { checkUser } from "../features/auth/authThunks"; // import thunk
 
 const PrivateWrapper = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, status } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(checkAuthUser());
-  }, [dispatch]);
+    if (status === "idle") {
+      dispatch(checkUser());
+    }
+  }, [dispatch, status]);
 
-  if (status === "loading") {
-    return <p>Loading...</p>;
+  if (status === "loading" || status === "idle") {
+    return <div>Checking authentication...</div>;
   }
 
-  return isAuthenticated ? <DashboardLayout /> : <Navigate to="/auth/login" />;
+  if (status === "succeeded" && isAuthenticated) {
+    return <DashboardLayout />;
+  }
+
+  return <Navigate to="/auth/login" />;
 };
 
 const PrivateRoutes = [
