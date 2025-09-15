@@ -19,8 +19,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // Redux auth state
-  const { status, error, isAuthenticated } = useSelector((state) => state.auth);
+  const { loginStatus, error, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
 
   // Handle form submit
   const handleSubmit = (e) => {
@@ -32,17 +33,16 @@ const Login = () => {
     dispatch(loginUser({ email, password }));
   };
 
-  // Success & Error Handling
   useEffect(() => {
-    if (status === "succeeded" && isAuthenticated) {
+    if (loginStatus === "succeeded" && isAuthenticated) {
       showSuccess("Login successful! 🎉");
       navigate("/dashboard");
     }
 
-    if (status === "failed" && error) {
+    if (loginStatus === "failed" && error) {
       showError(error);
     }
-  }, [status, isAuthenticated, error, navigate]);
+  }, [loginStatus, isAuthenticated, error, navigate]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 p-4">
@@ -133,8 +133,7 @@ const Login = () => {
             onClick={() => {
               dispatch(clearError());
               navigate("/auth/register");
-            }
-          }
+            }}
             className="text-blue-600 font-medium hover:underline cursor-pointer"
           >
             Register
