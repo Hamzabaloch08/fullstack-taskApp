@@ -4,7 +4,6 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 const SearchBar = () => {
 
   const [inputValue,setInputValue] = useState("")
-  console.log(inputValue)
 
   return (
     <div className="relative w-[25%] max-w-[220px] sm:max-w-xs md:max-w-sm">
