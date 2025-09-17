@@ -123,7 +123,7 @@ const Login = () => {
         {/* Register link */}
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           Don’t have an account?{" "}
-          <span
+          <span 
             onClick={() => {
               dispatch(clearError());
               navigate("/auth/register");
