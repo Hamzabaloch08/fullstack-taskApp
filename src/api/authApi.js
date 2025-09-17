@@ -8,8 +8,10 @@ export const login = (credentials) =>
 export const register = (userData) =>
   axiosInstance.post("/auth/signup", userData);
 
-// Logout
-export const logout = () => axiosInstance.post("/auth/logout");
-
 // Check Auth
-export const checkAuth = () => axiosInstance.get("/auth/check");
+export const checkAuth = () =>
+  axiosInstance.get("/auth/check", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
