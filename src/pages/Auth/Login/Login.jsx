@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import React, { useState, useEffect } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { clearError } from "../../../features/auth/authSlice";
+import { clearError,resetLoginStatus } from "../../../features/auth/authSlice";
 import { loginUser } from "../../../features/auth/authThunks";
 
 const Login = () => {
@@ -33,6 +33,11 @@ const Login = () => {
       navigate("/dashboard");
     }
   }, [loginStatus, isAuthenticated, navigate]);
+
+  useEffect(() => {
+    dispatch(clearError());
+    dispatch(resetLoginStatus());
+  }, [dispatch]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4">
@@ -95,7 +100,7 @@ const Login = () => {
           >
             {loginStatus === "loading" ? (
               <svg
-                className="animate-spin h-5 w-5 text-white"
+                className="animate-spin h-5 w-5 mr-2 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -114,18 +119,18 @@ const Login = () => {
                   d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z"
                 ></path>
               </svg>
-            ) : (
-              "Login"
-            )}
+            ) : null}
+            {loginStatus === "loading" ? "Logging in..." : "Login"}
           </button>
         </form>
 
         {/* Register link */}
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           Don’t have an account?{" "}
-          <span 
+          <span
             onClick={() => {
               dispatch(clearError());
+              dispatch(resetLoginStatus())
               navigate("/auth/register");
             }}
             className="text-blue-600 dark:text-blue-400 font-medium hover:underline cursor-pointer"
