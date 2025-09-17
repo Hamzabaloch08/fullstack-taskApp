@@ -26,7 +26,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const res = await register(userData);
-      return res.data.data.user || null;
+      return res?.data?.data?.user || null;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Register failed");
     }
@@ -48,7 +48,7 @@ export const checkUser = createAsyncThunk(
     try {
       const res = await checkAuth();
       console.log(res?.data?.data.user);
-      return res?.data?.data?.user; // backend returns { user }
+      return res?.data?.data?.user;
     } catch (err) {
       return rejectWithValue(
         err.response?.data?.message || "Not authenticated"
