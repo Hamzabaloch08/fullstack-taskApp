@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { registerUser } from "../../../features/auth/authThunks";
-import { clearError } from "../../../features/auth/authSlice";
+import { clearError,resetRegisterStatus } from "../../../features/auth/authSlice";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -32,9 +32,9 @@ const Register = () => {
     }
   }, [registerStatus, navigate]);
 
-  // Clear error when component unmounts
   useEffect(() => {
-    return () => dispatch(clearError());
+    dispatch(clearError());
+    dispatch(resetRegisterStatus());
   }, [dispatch]);
 
   return (
@@ -122,7 +122,7 @@ const Register = () => {
           >
             {registerStatus === "loading" ? (
               <svg
-                className="animate-spin h-5 w-5 text-white"
+                className="animate-spin h-5 w-5 mr-2 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -141,9 +141,8 @@ const Register = () => {
                   d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z"
                 ></path>
               </svg>
-            ) : (
-              "Register"
-            )}
+            ) : null}
+            {registerStatus === "loading" ? "Registering..." : "Register"}
           </button>
         </form>
 
@@ -152,6 +151,7 @@ const Register = () => {
           <span
             onClick={() => {
               dispatch(clearError());
+              dispatch(resetRegisterStatus())
               navigate("/auth/login");
             }}
             className="text-blue-600 dark:text-blue-400 font-medium hover:underline cursor-pointer"
