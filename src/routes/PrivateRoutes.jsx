@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { Navigate } from "react-router";
 import { checkUser } from "../features/auth/authThunks"; // import thunk
+import Loader from "../components/common/Loader";
 
 const PrivateWrapper = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const PrivateWrapper = () => {
   }, [dispatch, status]);
 
   if (status === "loading" || status === "idle") {
-    return <div>Checking authentication...</div>;
+    <Loader/>
   }
 
   if (status === "succeeded" && isAuthenticated) {
