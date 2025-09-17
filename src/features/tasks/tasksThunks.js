@@ -12,8 +12,10 @@ export const fetchTasks = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await getTasksApi();
+      console.log("Fetch Tasks Response:", res.data); // backend response
       return res.data;
     } catch (err) {
+      console.error("Fetch Tasks Error:", err.response?.data || err);
       return thunkAPI.rejectWithValue(
         err.response?.data?.message || "Failed to fetch tasks"
       );
@@ -27,9 +29,10 @@ export const addTask = createAsyncThunk(
   async (newTask, thunkAPI) => {
     try {
       const res = await addTaskApi(newTask);
-      console.log(res)
+      console.log("Add Task Response:", res.data); // backend response
       return res.data;
     } catch (err) {
+      console.error("Add Task Error:", err.response?.data || err);
       return thunkAPI.rejectWithValue(
         err.response?.data?.message || "Failed to add task"
       );
@@ -43,8 +46,10 @@ export const removeTask = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const res = await deleteTaskApi(id);
+      console.log("Delete Task Response:", res.data); // backend response
       return res.data;
     } catch (err) {
+      console.error("Delete Task Error:", err.response?.data || err);
       return thunkAPI.rejectWithValue(
         err.response?.data?.message || "Failed to delete task"
       );
@@ -58,8 +63,10 @@ export const updateTask = createAsyncThunk(
   async ({ id, data }, thunkAPI) => {
     try {
       const res = await updateTaskApi(id, data);
+      console.log("Update Task Response:", res.data); // backend response
       return res.data;
     } catch (err) {
+      console.error("Update Task Error:", err.response?.data || err);
       return thunkAPI.rejectWithValue(
         err.response?.data?.message || "Failed to update task"
       );
