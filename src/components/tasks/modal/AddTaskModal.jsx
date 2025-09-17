@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { addTask } from "../../../features/tasks/tasksThunks";
 
 const AddTaskModal = ({ onClose }) => {
   const [title, setTitle] = useState("");
@@ -8,7 +9,7 @@ const AddTaskModal = ({ onClose }) => {
 
   const handleAdd = () => {
     if (!title.trim()) return;
-    dispatch();
+    dispatch(addTask({ title, description }));
     onClose();
   };
 
