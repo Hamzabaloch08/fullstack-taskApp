@@ -47,7 +47,6 @@ export const checkUser = createAsyncThunk(
 
     try {
       const res = await checkAuth();
-      console.log(res?.data?.data);
       return res?.data?.data?.user;
     } catch (err) {
       return rejectWithValue(
