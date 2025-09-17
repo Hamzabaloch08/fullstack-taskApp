@@ -144,6 +144,7 @@ const Register = () => {
             ) : null}
             {registerStatus === "loading" ? "Registering..." : "Register"}
           </button>
+          {console.log(registerStatus)}
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
