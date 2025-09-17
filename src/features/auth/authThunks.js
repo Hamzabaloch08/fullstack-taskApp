@@ -47,7 +47,7 @@ export const checkUser = createAsyncThunk(
 
     try {
       const res = await checkAuth();
-      console.log(res.data.user)
+      console.log(res?.data)
       return res.data.data.user; // backend returns { user }
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Not authenticated");
