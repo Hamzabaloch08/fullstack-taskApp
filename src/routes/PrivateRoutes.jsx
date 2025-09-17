@@ -16,7 +16,7 @@ const PrivateWrapper = () => {
   }, [dispatch, status]);
 
   if (status === "loading" || status === "idle") {
-    <Loader/>
+    return <Loader />;
   }
 
   if (status === "succeeded" && isAuthenticated) {
