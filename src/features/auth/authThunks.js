@@ -47,10 +47,12 @@ export const checkUser = createAsyncThunk(
 
     try {
       const res = await checkAuth();
-      console.log(res?.data)
-      return res.data.data.user; // backend returns { user }
+      console.log(res?.data?.data.user);
+      return res?.data?.data?.user; // backend returns { user }
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "Not authenticated");
+      return rejectWithValue(
+        err.response?.data?.message || "Not authenticated"
+      );
     }
   }
 );
