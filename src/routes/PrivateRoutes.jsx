@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { Navigate } from "react-router";
-import { checkUser } from "../features/auth/authThunks"; // import thunk
+import { checkUser } from "../features/auth/authThunks";
 import Loader from "../components/common/Loader";
 
 const PrivateWrapper = () => {
