@@ -7,6 +7,7 @@ export const getTasksApi = () =>
   axiosInstance.get("/tasks", {
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   });
 
