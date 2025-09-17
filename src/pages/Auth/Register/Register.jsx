@@ -110,10 +110,10 @@ const Register = () => {
           {/* Submit */}
           <button
             type="submit"
-            disabled={status === "loading"}
+            disabled={registerStatus === "loading"}
             className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-2 rounded-lg hover:opacity-90 transition disabled:from-blue-300 disabled:to-indigo-300"
           >
-            {status === "loading" ? (
+            {registerStatus === "loading" ? (
               <svg
                 className="animate-spin h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
