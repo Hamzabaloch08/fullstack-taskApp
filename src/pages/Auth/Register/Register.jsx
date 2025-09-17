@@ -4,32 +4,38 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { registerUser } from "../../../features/auth/authThunks";
+import { clearError } from "../../../features/auth/authSlice";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // form state
+  // Form state
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // redux state
-  const { status, error } = useSelector((state) => state.auth);
+  // Redux state
+  const { registerStatus, error } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser({ firstName, lastName, email, password }));
   };
 
-  // redirect after success
+  // Redirect after success
   useEffect(() => {
-    if (status === "succeeded") {
+    if (registerStatus === "succeeded") {
       navigate("/auth/login");
     }
-  }, [status, navigate]);
+  }, [registerStatus, navigate]);
+
+  // Clear error when component unmounts
+  useEffect(() => {
+    return () => dispatch(clearError());
+  }, [dispatch]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4">
@@ -41,7 +47,8 @@ const Register = () => {
           Join us and explore the dashboard 🚀
         </p>
 
-        {status === "failed" && error && (
+        {/* Error */}
+        {registerStatus === "failed" && error && (
           <div className="mb-4 text-sm text-red-600 bg-red-100 dark:bg-red-900/40 dark:text-red-400 px-3 py-2 rounded">
             {error}
           </div>
@@ -143,7 +150,10 @@ const Register = () => {
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           Already have an account?{" "}
           <span
-            onClick={() => navigate("/auth/login")}
+            onClick={() => {
+              dispatch(clearError());
+              navigate("/auth/login");
+            }}
             className="text-blue-600 dark:text-blue-400 font-medium hover:underline cursor-pointer"
           >
             Login
