@@ -1,5 +1,3 @@
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import publicRoutes from "./routes/PublicRoute.jsx";
 import PrivateRoutes from "./routes/PrivateRoutes.jsx";
@@ -18,7 +16,6 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <ToastContainer />
     </>
   );
 }
