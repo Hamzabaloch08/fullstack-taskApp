@@ -27,7 +27,7 @@ export const addTask = createAsyncThunk(
   async (newTask, thunkAPI) => {
     try {
       const res = await addTaskApi(newTask);
-      console.log(res.data)
+      console.log(res)
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
