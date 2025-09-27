@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddTaskButton from "../tasks/button/AddTaskButton";
 import { NavLink } from "react-router";
 import {
@@ -10,6 +10,7 @@ import {
   FiXCircle,
   FiUser,
 } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const menuItems = [
   { name: "All Tasks", icon: <FiList size={18} /> },
@@ -21,6 +22,11 @@ const menuItems = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [profileImg, setProfileImg] = useState("");
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    console.log(user, "hello iam hamza");
+  }, []);
 
   return (
     <>
@@ -60,8 +66,8 @@ const Navbar = () => {
             {menuItems.map((item, idx) => (
               <NavLink
                 key={idx}
-                className={`flex items-center gap-3 font-medium px-4 py-2 rounded-lg 
-                relative group transition-colors duration-300
+                className={`flex items-center gap-3 font-medium px-4 py-2 rounded-bl-lg
+                rounded-tl-lg relative group transition-colors duration-300
                 hover:bg-red-400/10 hover:text-pink-600
                 ${!isOpen ? "justify-center px-0" : ""}`}
               >
@@ -100,8 +106,8 @@ const Navbar = () => {
 
           {isOpen && (
             <div>
-              <p className="font-medium text-gray-600 dark:text-gray-400">
-                Jane Doe
+              <p className="font-medium text-gray-600 dark:text-gray-400 capitalize">
+                {`${user?.firstName}`}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 View Profile
